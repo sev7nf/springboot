@@ -1,0 +1,18 @@
+server:
+  port: 2020
+  tomcat:
+    # 设置tomcat编码格式
+    uri-encoding: utf-8
+  servlet:
+    context-path: /alexchs-demo/
+
+
+# mybatis配置sql文件位置
+# 可参考：https://www.cnblogs.com/java-zhao/p/5350021.html
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+  type-aliases-package: com.example.demo02.domain
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:ss
+    time-zone: GMT + 8
