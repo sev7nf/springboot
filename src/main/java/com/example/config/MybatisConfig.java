@@ -1,10 +1,12 @@
 package com.example.config;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -40,7 +43,7 @@ public class MybatisConfig {
      * 创建数据源
      * @Primary 该注解表示在同一个接口有多个实现类可以注入的时候，默认选择哪一个，而不是让@autowire注解报错
      */
-    @Bean
+    @Bean("dataSource1")
     @Primary
     public DataSource getDataSource() throws Exception{
         Properties props = new Properties();
@@ -51,6 +54,15 @@ public class MybatisConfig {
 
         setDruidBaseProps(props);
         return DruidDataSourceFactory.createDataSource(props);
+    }
+
+    /*
+     * 配置事务管理器
+     * https://www.ctolib.com/topics-133908.html
+     */
+    @Bean
+    public DataSourceTransactionManager myDataSourcceTranseaction(@Qualifier("dataSource1") DataSource dataSource1) {
+        return new DataSourceTransactionManager(dataSource1);
     }
 
     private void setDruidBaseProps(Properties props) {
@@ -77,7 +89,9 @@ public class MybatisConfig {
      */
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource ds) throws Exception{
-        SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
+//        SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
+        // 植入mybatis-plus 切换sqlsession,参考：https://mp.baomidou.com/guide/config.html
+        MybatisSqlSessionFactoryBean fb = new MybatisSqlSessionFactoryBean();
         fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
         //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         fb.setTypeAliasesPackage(env.getProperty("mybatis.typeAliasesPackage"));//指定基包

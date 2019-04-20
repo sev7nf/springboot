@@ -61,8 +61,8 @@
 
 		<swagger.version>2.7.0</swagger.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
-
 		<tomcat.version>9.0.6</tomcat.version>
+        <mybatis-generator-core.version>1.3.5</mybatis-generator-core.version>
 	</properties>
 
 	<dependencies>
@@ -127,6 +127,14 @@
 			<version>${apache-commons-pool2.version}</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.56</version>
+		</dependency>
+
+
 		<!--<dependency>&lt;!&ndash;tomcat 自带jdbc&ndash;&gt;-->
 			<!--<groupId>org.apache.tomcat</groupId>-->
 			<!--<artifactId>tomcat-jdbc</artifactId>-->
@@ -177,6 +185,12 @@
 					<!--<groupId>com.google.guava</groupId>-->
 				<!--</exclusion>-->
 			<!--</exclusions>-->
+			<!--<exclusions>-->
+				<!--<exclusion>-->
+					<!--<artifactId>guava</artifactId>-->
+					<!--<groupId>com.google.guava</groupId>-->
+				<!--</exclusion>-->
+			<!--</exclusions>-->
 		</dependency>
 		<!-- swagger2 ui -->
 		<dependency>
@@ -209,6 +223,29 @@
 			<scope>provided</scope>
 		</dependency>
 
+        <!--  植入meysql-generator -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>${mybatis-generator-core.version}</version>
+        </dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.0.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -230,7 +267,7 @@
 			</resource>
 		</resources>
 
-
+<!--  这个插件，将应用打包成可执行的jar包 -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

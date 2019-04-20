@@ -5,6 +5,13 @@ public class DemoEntity {
     private String name;
     private int age;
 
+    public DemoEntity() {
+    }
+
+    public DemoEntity(String dataId) {
+        this.dataId = dataId;
+    }
+
     public String getDataId() {
         return dataId;
     }
@@ -27,5 +34,14 @@ public class DemoEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "DemoEntity{" +
+                "dataId='" + dataId + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

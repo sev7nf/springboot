@@ -1,0 +1,9 @@
+log4j:
+  rootCategory: INFO, stdout, file
+  appender:
+    file: org.apache.log4j.DailyRollingFileAppender
+      file: logs/all-test.log
+      DatePattern: '.'yyyy-MM-dd
+    stdout: org.apache.log4j.ConsoleAppender
+      layout: org.apache.log4j.PatternLayout
+        ConversionPattern: %d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n

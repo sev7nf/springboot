@@ -5,3 +5,4 @@
   Error creating bean with name 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
 >>> a.在pom.xml中，parent和dependencyManagement配置了重复的启动依赖
   
+>>> 集成日志输出组件出错 ：http://www.spring4all.com/article/257

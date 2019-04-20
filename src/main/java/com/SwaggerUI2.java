@@ -16,7 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * @Author: Alexchs
@@ -34,34 +33,34 @@ public class SwaggerUI2 {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example"))
                 .paths(PathSelectors.any())
-                .build()
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .build();
+//                .securitySchemes(securitySchemes())
+//                .securityContexts(securityContexts());
     }
 
     /**
      * 配置认证模式
      */
-    private List<ApiKey> securitySchemes() {
-        return newArrayList(new ApiKey("Authorization", "Authorization", "header"));
-    }
+//    private List<ApiKey> securitySchemes() {
+//        return newArrayList(new ApiKey("Authorization", "Authorization", "header"));
+//    }
 
     /**
      * 配置认证上下文
      */
-    private List<SecurityContext> securityContexts() {
-        return newArrayList(SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.any())
-                .build());
-    }
-
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return newArrayList(new SecurityReference("Authorization", authorizationScopes));
-    }
+//    private List<SecurityContext> securityContexts() {
+//        return newArrayList(SecurityContext.builder()
+//                .securityReferences(defaultAuth())
+//                .forPaths(PathSelectors.any())
+//                .build());
+//    }
+//
+//    private List<SecurityReference> defaultAuth() {
+//        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+//        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//        authorizationScopes[0] = authorizationScope;
+//        return newArrayList(new SecurityReference("Authorization", authorizationScopes));
+//    }
 
     /**
      * 项目信息

@@ -6,6 +6,7 @@ server:
   servlet:
     context-path: /alexchs-demo/
 
+
 spring:
   datasource:
     name: alexchs

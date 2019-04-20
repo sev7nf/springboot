@@ -3,10 +3,14 @@ package com;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2  //启动swagger注解
+@EnableAsync
+@EnableScheduling
 @MapperScan("com.example.demo02.dao")  // 可以扫描多个包，不必再用@mapper注解
 public class Application {
 
