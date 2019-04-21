@@ -3,7 +3,6 @@ package com.example.demo02.service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -37,17 +36,17 @@ public class ExecutorTest {
     public void testExecutorCachedThreadPoolCallable() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         List<Future<String>> ftList = new ArrayList<>(5);
-//        List<Future<String>> ftList = new LinkedList<Future<String>>();
+        // List<Future<String>> ftList = new LinkedList<Future<String>>();
         LocalDateTime start = LocalDateTime.now();
         System.out.println("start time is : " + start);
         for (int i = 0; i < 10; i++) {
             int finalI = i;
-/*            ftList.add(executorService.submit(new Callable<String>() {
+            /*            ftList.add(executorService.submit(new Callable<String>() {
                 public String call() throws InterruptedException {
                     System.out.println(Thread.currentThread() + String.valueOf(finalI) + " is running...");
                     TimeUnit.SECONDS.sleep(1);
                     return Thread.currentThread() + "-----" + String.valueOf(finalI);
-
+            
                 }
             }));*/
             System.out.println("start add res " + String.valueOf(finalI));
@@ -69,9 +68,7 @@ public class ExecutorTest {
         ftList.forEach(e -> {
             try {
                 System.out.println(e.get());
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            } catch (ExecutionException e1) {
+            } catch (InterruptedException | ExecutionException e1) {
                 e1.printStackTrace();
             }
         });
@@ -79,7 +76,7 @@ public class ExecutorTest {
         System.out.println("end02 time is : " + end02);
         System.out.println("using time : " + Duration.between(start, end02));
 
-//        executorService.shutdown();
+        // executorService.shutdown();
         System.out.println("executor isn shutdown :" + executorService.isShutdown());
     }
 }
